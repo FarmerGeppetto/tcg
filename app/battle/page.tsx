@@ -34,8 +34,6 @@ export default function BattlePage() {
     setupBattle()
   }, [challenger, playerWallet, setOpponentWallet, setOpponentCard])
 
-  useCardStore.getState().setBattleId(battleId)
-
   // Redirect to home page
   useEffect(() => {
     window.location.href = '/'
