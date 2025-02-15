@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { useCardStore } from "@/lib/store"
 import { fetchNFTsByOwner, fetchNFTData } from "@/lib/utils"
 
-export default function BattlePage() {
+function BattleContent() {
   const searchParams = useSearchParams()
   const setOpponentWallet = useCardStore((state) => state.setOpponentWallet)
   const setOpponentCard = useCardStore((state) => state.setOpponentCard)
@@ -40,4 +40,12 @@ export default function BattlePage() {
   }, [])
 
   return null
+}
+
+export default function BattlePage() {
+  return (
+    <Suspense fallback={null}>
+      <BattleContent />
+    </Suspense>
+  )
 } 
