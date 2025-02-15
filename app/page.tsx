@@ -71,12 +71,12 @@ export default function Home() {
       <VictoryOverlay />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(76,29,149,0.1),rgba(0,0,0,0))] z-0" />
       
-      <div className="relative z-10 min-h-screen pt-40 pb-16">
-        <div className="container mx-auto px-2 h-full flex items-start">
+      <div className="relative z-10 min-h-screen pt-32 pb-16">
+        <div className="container mx-auto px-2 h-full">
           {/* Three Column Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:grid-cols-[300px_1fr_300px] gap-4 lg:gap-6 -translate-x-20">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:grid-cols-[260px_1fr_260px] gap-3 lg:gap-4">
             {/* Left Column - Controls */}
-            <div className="space-y-6 backdrop-blur-sm bg-black/40 p-4 sm:p-6 rounded-2xl border border-white/10">
+            <div className="space-y-4 backdrop-blur-sm bg-black/40 p-4 rounded-2xl border border-white/10">
               <CollectionSelector
                 selected={collection}
                 onSelect={(col) => {
@@ -121,21 +121,18 @@ export default function Home() {
               <Leaderboard />
             </div>
 
-            {/* Center Column - Cards and Battle Log */}
-            <div className="flex flex-col gap-6">
-              {/* Cards */}
+            {/* Center Column */}
+            <div className="flex flex-col gap-4">
               <div className="flex items-center justify-center">
                 <CardPreview />
               </div>
-
-              {/* Battle Log */}
-              <div className="backdrop-blur-sm bg-black/40 p-4 sm:p-6 rounded-2xl border border-white/10">
+              <div className="backdrop-blur-sm bg-black/40 p-4 rounded-2xl border border-white/10">
                 <BattleLog />
               </div>
             </div>
 
-            {/* Right Column - Battle Controls (now without battle log) */}
-            <div className="backdrop-blur-sm bg-black/40 p-4 sm:p-6 rounded-2xl border border-white/10 space-y-6">
+            {/* Right Column */}
+            <div className="backdrop-blur-sm bg-black/40 p-4 rounded-2xl border border-white/10 space-y-4">
               {/* Health Status */}
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Health Status</h3>

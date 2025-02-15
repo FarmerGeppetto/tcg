@@ -20,15 +20,15 @@ export function CardPreview() {
 
 function NFTCard({ card, isOpponent = false }: { card: AzukiCard | null, isOpponent?: boolean }) {
   return (
-    <Card className={`w-[440px] h-[520px] bg-gradient-to-br from-indigo-950 to-purple-900 relative group ${isOpponent ? 'opacity-90' : ''}`}>
+    <Card className={`w-[300px] h-[380px] bg-gradient-to-br from-indigo-950 to-purple-900 relative group ${isOpponent ? 'opacity-90' : ''}`}>
       <CardContent className="p-4 relative">
-        <div className="absolute top-6 right-6 text-sm text-white/60">
+        <div className="absolute top-4 right-4 text-sm text-white/60">
           #{card?.id}
         </div>
         
         <div className="h-full flex flex-col justify-between">
           <div className="space-y-4">
-            <div className="w-full h-[400px] rounded-lg overflow-hidden">
+            <div className="w-full h-[260px] rounded-lg overflow-hidden">
               {card?.image ? (
                 <Image 
                   src={card.image}
