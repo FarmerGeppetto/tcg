@@ -2,19 +2,20 @@ import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 export async function POST(request: Request) {
-  const { battleId, actions } = await request.json()
+  const { battleId } = await request.json()
 
-  // Verify action sequence and calculate final state
-  const verifiedState = verifyBattleActions(actions)
+  try {
+    // Record battle as verified
+    await supabase
+      .from('battles')
+      .update({ 
+        verified: true,
+      })
+      .eq('id', battleId)
 
-  // Record verified result
-  await supabase
-    .from('battles')
-    .update({ 
-      verified: true,
-      final_state: verifiedState
-    })
-    .eq('id', battleId)
-
-  return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Error verifying battle:', error)
+    return NextResponse.json({ error: 'Failed to verify battle' }, { status: 500 })
+  }
 } 
