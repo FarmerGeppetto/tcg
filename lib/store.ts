@@ -26,6 +26,7 @@ interface CardState {
     defend: ActionState;
     heal: ActionState;
   };
+  playerPoints: number;
   setPlayerCard: (card: AzukiCard | null) => void;
   setOpponentCard: (card: AzukiCard | null) => void;
   setPlayerWallet: (address: string | null) => void;
@@ -38,6 +39,7 @@ interface CardState {
   addInventoryItem: (item: ShopItem) => void;
   useInventoryItem: (itemId: string) => void;
   resetActionStates: () => void;
+  setPlayerPoints: (points: number) => void;
 }
 
 export const useCardStore = create<CardState>((set, get) => ({
@@ -58,6 +60,7 @@ export const useCardStore = create<CardState>((set, get) => ({
     defend: { remainingUses: 5, cooldown: 1 }, // 5 uses, 1 turn cooldown
     heal: { remainingUses: 2, cooldown: 3 }, // 2 uses, 3 turns cooldown
   },
+  playerPoints: 0,
 
   setPlayerCard: (card) => set({ playerCard: card, playerHealth: 100 }),
   setOpponentCard: (card) => set({ opponentCard: card, opponentHealth: 100 }),
@@ -65,6 +68,7 @@ export const useCardStore = create<CardState>((set, get) => ({
   setOpponentWallet: (address) => set({ opponentWallet: address }),
   setPlayerEns: (ens) => set({ playerEns: ens }),
   setPlayerAvatar: (avatar) => set({ playerAvatar: avatar }),
+  setPlayerPoints: (points) => set({ playerPoints: points }),
 
   getPlayerPoints: async () => {
     const { playerWallet } = get();
