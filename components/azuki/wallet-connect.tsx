@@ -128,7 +128,7 @@ export function WalletConnect() {
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex lg:flex-row flex-col gap-2">
       {playerWallet && (
         <Button
           onClick={createInviteLink}
@@ -142,7 +142,7 @@ export function WalletConnect() {
       <div className="relative group">
         <Button 
           onClick={playerWallet ? disconnectWallet : connectWallet}
-          className="relative overflow-hidden group bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 transition-all duration-300"
+          className="relative overflow-hidden group bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 transition-all duration-300 w-full"
         >
           <div className="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition-all duration-300" />
           <div className="relative flex items-center gap-2 px-4 py-2">

@@ -89,12 +89,13 @@ export function Shop() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button 
-          className="bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white font-medium px-4 py-2 rounded-lg flex items-center gap-2"
+        <Button
+          onClick={() => setSelectedItem(null)}
+          className="bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white font-medium px-4 py-2 rounded-lg w-full flex items-center justify-center gap-2"
         >
           <span className="text-xl">🏪</span>
           <span>Shop</span>
-          <span className="bg-yellow-400/20 px-2 py-0.5 rounded text-sm">NEW!</span>
+          <span className="bg-yellow-400/20 px-2 py-0.5 rounded-lg text-sm">NEW!</span>
         </Button>
       </DialogTrigger>
       
@@ -131,7 +132,10 @@ export function Shop() {
                 <p className="text-sm text-white/60">Cost: {selectedItem.price} points</p>
               </div>
               <Button
-                onClick={() => purchaseItem(selectedItem)}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  purchaseItem(selectedItem)
+                }}
                 disabled={playerPoints < selectedItem.price}
                 className="bg-purple-600 hover:bg-purple-700"
               >

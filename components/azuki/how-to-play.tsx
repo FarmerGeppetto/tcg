@@ -33,22 +33,24 @@ export function HowToPlay() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button 
-          className="bg-purple-500/90 hover:bg-purple-500/70 text-white rounded-full px-4 py-2 flex items-center gap-2"
+        <Button
+          className="bg-purple-500/90 hover:bg-purple-500/70 text-white font-medium px-4 py-2 rounded-lg w-full flex items-center justify-center gap-2"
         >
-          <span>🎮</span>
+          <span className="text-xl">🎮</span>
           <span>How to Play</span>
-          <span className="w-6 h-6 flex items-center justify-center bg-purple-400/20 rounded-full">?</span>
+          <span className="w-6 h-6 flex items-center justify-center bg-purple-400/20 rounded-lg">?</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-zinc-950/90 border-white/10 text-white max-w-2xl">
+
+      <DialogContent className="bg-zinc-950/90 border-white/10 text-white max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl">How to Play AZUKI TCG</DialogTitle>
         </DialogHeader>
-        <div className="space-y-6 text-white/80">
-          <div className="space-y-4">
+        
+        <div className="space-y-4 text-white/80">
+          <div className="space-y-3">
             <h3 className="text-lg font-medium text-white">Getting Started</h3>
-            <ul className="list-disc pl-5 space-y-2">
+            <ul className="list-disc pl-5 space-y-1.5">
               <li>Connect your wallet to start playing and track your progress</li>
               <li>Your ENS name and avatar will be displayed if available</li>
               <li>Choose your collection: Azuki, Elementals, or BEANZ</li>
@@ -56,18 +58,18 @@ export function HowToPlay() {
             </ul>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             <h3 className="text-lg font-medium text-white">Battle System</h3>
-            <ul className="list-disc pl-5 space-y-2">
+            <ul className="list-disc pl-5 space-y-1.5">
               <li>Each card has three stats: Attack (⚔️), Defense (🛡️), and Special (💫)</li>
               <li>Players take turns performing actions</li>
               <li>Win by reducing your opponent&apos;s health to 0</li>
             </ul>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             <h3 className="text-lg font-medium text-white">Actions</h3>
-            <ul className="list-disc pl-5 space-y-2">
+            <ul className="list-disc pl-5 space-y-1.5">
               <li><span className="text-red-400">Attack (⚔️)</span> - Deal damage based on your Attack stat</li>
               <li><span className="text-purple-400">Special (💫)</span> - Unleash a powerful special attack</li>
               <li><span className="text-blue-400">Defend (🛡️)</span> - Recover HP based on your Defense stat</li>
@@ -75,9 +77,9 @@ export function HowToPlay() {
             </ul>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             <h3 className="text-lg font-medium text-white">Features</h3>
-            <ul className="list-disc pl-5 space-y-2">
+            <ul className="list-disc pl-5 space-y-1.5">
               <li>Earn points for winning battles</li>
               <li>Visit the 🏪 Shop to buy power-ups and items</li>
               <li>Share your victories on Twitter with card stats</li>
