@@ -28,10 +28,9 @@ export function VictoryOverlay() {
       `⚔️ ATK: ${playerCard?.stats.attack}\n` +
       `🛡️ DEF: ${playerCard?.stats.defense}\n` +
       `💫 SP: ${playerCard?.stats.special}\n\n` +
-      `Join the battle at ${window.location.origin}\n\n` +
+      `Join the battle at https://azukitcg.com\n\n` +
       `#AzukiTCG #NFTGaming #Azuki $ANIME`;
 
-    // Create the URL with all parameters
     const shareUrl = new URL('https://twitter.com/intent/tweet');
     shareUrl.searchParams.append('text', shareText);
 

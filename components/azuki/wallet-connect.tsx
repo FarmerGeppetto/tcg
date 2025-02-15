@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 import { fetchNFTsByOwner, fetchNFTData } from "@/lib/utils"
+import { LogOut } from "lucide-react"
 
 export function WalletConnect() {
   const [showDialog, setShowDialog] = useState(false)
@@ -72,64 +73,36 @@ export function WalletConnect() {
           method: 'eth_requestAccounts' 
         })
         const address = accounts[0]
-        setTempWallet(address)
         
-        // Fetch user's NFTs when they connect
+        // Set wallet immediately
+        setPlayerWallet(address)
+        localStorage.setItem('playerWallet', address)
+        
+        // Fetch user's NFTs
         const nfts = await fetchNFTsByOwner(address)
         if (nfts.length > 0) {
-          // Set the first NFT as their player card
           const nftData = await fetchNFTData(nfts[0].id, nfts[0].collection)
           setPlayerCard(nftData)
         }
         
-        // Check if user already exists
+        // Register player if they don't exist
         const response = await fetch(`/api/players?wallet_address=${address}`)
-        if (response.ok) {
-          const player = await response.json()
-          if (player) {
-            setPlayerWallet(address)
-            setUsername(player.username)
-            localStorage.setItem('playerWallet', address)
-            localStorage.setItem('playerUsername', player.username)
-            return
-          }
+        if (!response.ok) {
+          // Register with wallet address as username if no ENS
+          await fetch('/api/players', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              wallet_address: address,
+              username: playerEns || `${address.slice(0, 6)}...${address.slice(-4)}`
+            })
+          })
         }
-        
-        setShowDialog(true)
       } catch (error) {
         console.error('Error connecting wallet:', error)
       }
     } else {
       alert('Please install MetaMask!')
-    }
-  }
-
-  const registerPlayer = async () => {
-    if (!tempWallet || !username) return
-    
-    try {
-      console.log('Registering with:', { tempWallet, username }) // Debug log
-      const response = await fetch('/api/players', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          wallet_address: tempWallet,
-          username
-        })
-      })
-      
-      if (response.ok) {
-        const data = await response.json()
-        console.log('Registration response:', data) // Debug log
-        setPlayerWallet(tempWallet)
-        localStorage.setItem('playerWallet', tempWallet)
-        localStorage.setItem('playerUsername', username)
-        setShowDialog(false)
-      } else {
-        console.error('Registration failed:', await response.json())
-      }
-    } catch (error) {
-      console.error('Error registering player:', error)
     }
   }
 
@@ -145,6 +118,15 @@ export function WalletConnect() {
     toast.success("Battle invite link copied! Share with your opponent to start the battle.")
   }
 
+  const disconnectWallet = () => {
+    setPlayerWallet(null)
+    setPlayerEns(null)
+    setPlayerAvatar(null)
+    setPlayerCard(null)
+    localStorage.removeItem('playerWallet')
+    toast.success("Wallet disconnected")
+  }
+
   return (
     <div className="flex items-center gap-2">
       {playerWallet && (
@@ -157,23 +139,37 @@ export function WalletConnect() {
         </Button>
       )}
 
-      <Button 
-        onClick={connectWallet}
-        className="relative overflow-hidden group bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 transition-all duration-300"
-      >
-        <div className="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition-all duration-300" />
-        <div className="relative flex items-center gap-2 px-4 py-2">
-          {playerWallet ? (
-            <>
-              {playerAvatar ? (
-                <Image 
-                  src={playerAvatar}
-                  alt="ENS Avatar"
-                  width={20}
-                  height={20}
-                  className="w-5 h-5 rounded-full"
-                />
-              ) : (
+      <div className="relative group">
+        <Button 
+          onClick={playerWallet ? disconnectWallet : connectWallet}
+          className="relative overflow-hidden group bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 transition-all duration-300"
+        >
+          <div className="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition-all duration-300" />
+          <div className="relative flex items-center gap-2 px-4 py-2">
+            {playerWallet ? (
+              <>
+                {playerAvatar ? (
+                  <Image 
+                    src={playerAvatar}
+                    alt="ENS Avatar"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 rounded-full"
+                  />
+                ) : (
+                  <Image 
+                    src="/metamask.svg" 
+                    alt="MetaMask" 
+                    width={20} 
+                    height={20} 
+                    className="w-5 h-5"
+                  />
+                )}
+                <span>{playerEns || `${playerWallet.slice(0, 6)}...${playerWallet.slice(-4)}`}</span>
+                <LogOut className="w-4 h-4 ml-2 text-white/40 hover:text-red-400 transition-colors" />
+              </>
+            ) : (
+              <>
                 <Image 
                   src="/metamask.svg" 
                   alt="MetaMask" 
@@ -181,23 +177,12 @@ export function WalletConnect() {
                   height={20} 
                   className="w-5 h-5"
                 />
-              )}
-              <span>{playerEns || `${playerWallet.slice(0, 6)}...${playerWallet.slice(-4)}`}</span>
-            </>
-          ) : (
-            <>
-              <Image 
-                src="/metamask.svg" 
-                alt="MetaMask" 
-                width={20} 
-                height={20} 
-                className="w-5 h-5"
-              />
-              Connect Wallet
-            </>
-          )}
-        </div>
-      </Button>
+                Connect Wallet
+              </>
+            )}
+          </div>
+        </Button>
+      </div>
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="bg-zinc-950/90 border-white/10 text-white">
@@ -228,7 +213,7 @@ export function WalletConnect() {
               </div>
             )}
             <Button 
-              onClick={registerPlayer}
+              onClick={connectWallet}
               className="w-full bg-purple-600 hover:bg-purple-700"
             >
               Start Playing
