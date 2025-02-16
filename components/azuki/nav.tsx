@@ -20,15 +20,16 @@ export function Nav() {
             <Image 
               src="/azukitcg.png" 
               alt="Azuki TCG Logo" 
-              width={40} 
-              height={40} 
+              width={72} 
+              height={72} 
               className="rounded-lg"
             />
             <div className="text-2xl sm:text-3xl font-bold tracking-tighter">
               <span className="bg-gradient-to-r from-white via-purple-400 to-blue-500 bg-clip-text text-transparent">
                 AZUKI
               </span>
-              <span className="text-white/60 ml-2">TCG</span>
+              <span className="text-white/60 ml-2">PFP</span>
+              <span className="bg-gradient-to-r from-white via-purple-400 to-blue-500 bg-clip-text text-transparent ml-2">BATTLE</span>
             </div>
           </div>
 

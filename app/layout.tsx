@@ -9,7 +9,7 @@ const azukiFont = Zen_Kaku_Gothic_New({
 })
 
 export const metadata = {
-  title: 'Azuki TCG',
+  title: 'Azuki PFP Battle',
   description: 'Trading Card Game for the Azuki community',
 }
 

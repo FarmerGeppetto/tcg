@@ -44,7 +44,7 @@ export function HowToPlay() {
 
       <DialogContent className="bg-zinc-950/90 border-white/10 text-white max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl">How to Play AZUKI TCG</DialogTitle>
+          <DialogTitle className="text-2xl">How to Play AZUKI PFP Battle</DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4 text-white/80">
