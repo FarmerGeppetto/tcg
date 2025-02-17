@@ -5,16 +5,20 @@ class SoundManager {
   private static initialize() {
     if (typeof window === 'undefined' || this.initialized) return
 
-    // Add console logs to debug
-    console.log('Initializing sound manager...')
+    const SOUND_URLS = {
+      attack: 'https://jewmugsbblpba6ja.public.blob.vercel-storage.com/442769__qubodup__sword-hit-FY52eLbkmMDRKm46AtnptTf2BuTIkC.mp3',
+      special: 'https://jewmugsbblpba6ja.public.blob.vercel-storage.com/547600__mateusz_chenc__sword-attack-2CRX6zZZyzhmsOFLmJMWizfgNYFNT8.mp3',
+      defend: 'https://jewmugsbblpba6ja.public.blob.vercel-storage.com/523760__matrixxx__attack-blocked-pC055SFTOfpx1mL4FJwgS4eUjwRGvE.mp3',
+      heal: 'https://jewmugsbblpba6ja.public.blob.vercel-storage.com/523654__matrixxx__powerup-10-kLeqHqVrI4fIOCSMKBYpT6dCww27MF.mp3',
+      fight: 'https://jewmugsbblpba6ja.public.blob.vercel-storage.com/541822__audeption__three-two-one-fight-deep-voice-TiGNYAzyqu905ijqsiVbOWOZUssGgH.mp3'
+    }
 
-    // Using temporary direct URLs - replace these with your actual hosted sound files
     this.sounds = {
-      attack: new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'),
-      special: new Audio('https://assets.mixkit.co/active_storage/sfx/2577/2577-preview.mp3'),
-      defend: new Audio('https://assets.mixkit.co/active_storage/sfx/2575/2575-preview.mp3'),
-      heal: new Audio('https://assets.mixkit.co/active_storage/sfx/2574/2574-preview.mp3'),
-      fight: new Audio('https://assets.mixkit.co/active_storage/sfx/2578/2578-preview.mp3')
+      attack: new Audio(SOUND_URLS.attack),
+      special: new Audio(SOUND_URLS.special),
+      defend: new Audio(SOUND_URLS.defend),
+      heal: new Audio(SOUND_URLS.heal),
+      fight: new Audio(SOUND_URLS.fight)
     }
 
     // Add error listeners to each sound

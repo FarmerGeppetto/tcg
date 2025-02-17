@@ -51,7 +51,12 @@ export default function Home() {
   const handleGeneratePlayer = async () => {
     setIsLoading(true)
     try {
-      const id = playerNftId || availableIds[Math.floor(Math.random() * availableIds.length)]
+      // Get a random ID that's not the opponent's ID
+      let id = playerNftId || availableIds[Math.floor(Math.random() * availableIds.length)]
+      while (id === opponentNftId) {
+        id = availableIds[Math.floor(Math.random() * availableIds.length)]
+      }
+      
       setPlayerNftId(id)
       const nftData = await fetchNFTData(id, collection)
       setPlayerCard(nftData)
@@ -65,12 +70,17 @@ export default function Home() {
   const handleGenerateOpponent = async () => {
     setIsLoading(true)
     try {
-      const id = opponentNftId || availableIds[Math.floor(Math.random() * availableIds.length)]
+      // Get a random ID that's not the player's ID
+      let id = opponentNftId || availableIds[Math.floor(Math.random() * availableIds.length)]
+      while (id === playerNftId) {
+        id = availableIds[Math.floor(Math.random() * availableIds.length)]
+      }
+      
       setOpponentNftId(id)
       const nftData = await fetchNFTData(id, collection)
       setOpponentCard(nftData)
     } catch (error) {
-      console.error('Failed to generate opponent card:', error)
+      console.error('Failed to generate card:', error)
     } finally {
       setIsLoading(false)
     }
