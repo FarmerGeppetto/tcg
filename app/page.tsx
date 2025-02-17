@@ -16,6 +16,7 @@ import { Footer } from "@/components/azuki/footer"
 import { Leaderboard } from "@/components/azuki/leaderboard"
 import { Nav } from "@/components/azuki/nav"
 import { FightIntro } from "@/components/azuki/fight-intro"
+import { ElementLoader } from "@/components/azuki/element-loader"
 
 export default function Home() {
   const [playerNftId, setPlayerNftId] = useState("")
@@ -35,6 +36,7 @@ export default function Home() {
   const [showIntro, setShowIntro] = useState(false)
   const playerCard = useCardStore((state) => state.playerCard)
   const opponentCard = useCardStore((state) => state.opponentCard)
+  const [showElementalIntro, setShowElementalIntro] = useState(true)
 
   // Load available NFT IDs on mount and when collection changes
   useEffect(() => {
@@ -88,6 +90,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-indigo-950 via-purple-950 to-zinc-950 text-white relative overflow-x-hidden">
+      {showElementalIntro && <ElementLoader onComplete={() => setShowElementalIntro(false)} />}
       <Nav />
       <VictoryOverlay />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(76,29,149,0.1),rgba(0,0,0,0))] z-0" />
