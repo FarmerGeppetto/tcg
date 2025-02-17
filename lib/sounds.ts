@@ -5,9 +5,8 @@ class SoundManager {
   private static initialize() {
     if (typeof window === 'undefined' || this.initialized) return
 
-    const baseUrl = process.env.NODE_ENV === 'production' 
-      ? 'https://azukibattle.com'
-      : ''
+    // Use raw GitHub URLs for now
+    const baseUrl = 'https://raw.githubusercontent.com/FarmerGeppetto/tcg/main/public'
 
     this.sounds = {
       attack: new Audio(`${baseUrl}/sounds/442769__qubodup__sword-hit.mp3`),
