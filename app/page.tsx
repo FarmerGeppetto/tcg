@@ -15,6 +15,7 @@ import { VictoryOverlay } from "@/components/azuki/victory-overlay"
 import { Footer } from "@/components/azuki/footer"
 import { Leaderboard } from "@/components/azuki/leaderboard"
 import { Nav } from "@/components/azuki/nav"
+import { FightIntro } from "@/components/azuki/fight-intro"
 
 export default function Home() {
   const [playerNftId, setPlayerNftId] = useState("")
@@ -31,11 +32,21 @@ export default function Home() {
   const playerEns = useCardStore((state) => state.playerEns)
   const playerWallet = useCardStore((state) => state.playerWallet)
   const opponentWallet = useCardStore((state) => state.opponentWallet)
+  const [showIntro, setShowIntro] = useState(false)
+  const playerCard = useCardStore((state) => state.playerCard)
+  const opponentCard = useCardStore((state) => state.opponentCard)
 
   // Load available NFT IDs on mount and when collection changes
   useEffect(() => {
     preloadAzukiIds(collection).then(ids => setAvailableIds(ids))
   }, [collection])
+
+  // Show intro when both cards are ready
+  useEffect(() => {
+    if (playerCard && opponentCard) {
+      setShowIntro(true)
+    }
+  }, [playerCard, opponentCard])
 
   const handleGeneratePlayer = async () => {
     setIsLoading(true)
@@ -74,7 +85,7 @@ export default function Home() {
       <div className="relative z-10 min-h-screen pt-32 pb-16">
         <div className="container mx-auto px-2 h-full">
           {/* Three Column Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:grid-cols-[260px_1fr_260px] gap-3 lg:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:grid-cols-[300px_1fr_260px] gap-3 lg:gap-4">
             {/* Left Column - Controls */}
             <div className="space-y-4 backdrop-blur-sm bg-black/40 p-4 rounded-2xl border border-white/10">
               <CollectionSelector
@@ -199,6 +210,9 @@ export default function Home() {
         </div>
       </div>
       <Footer />
+      {showIntro && (
+        <FightIntro onComplete={() => setShowIntro(false)} />
+      )}
     </main>
   )
 }
