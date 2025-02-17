@@ -1,6 +1,10 @@
 import { put } from '@vercel/blob';
 import { NextResponse } from 'next/server';
 
+// Use the new route segment config
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: Request) {
   const { searchParams } = new URL(request.url);
   const filename = searchParams.get('filename');
@@ -24,9 +28,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};

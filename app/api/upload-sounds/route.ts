@@ -3,6 +3,10 @@ import { NextResponse } from 'next/server';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+// Use the new route segment config
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const sounds = {
