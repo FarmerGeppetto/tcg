@@ -6,11 +6,11 @@ class SoundManager {
     if (typeof window === 'undefined' || this.initialized) return
 
     this.sounds = {
-      attack: new Audio('https://your-storage-url/442769__qubodup__sword-hit.mp3'),
-      special: new Audio('https://your-storage-url/547600__mateusz_chenc__sword-attack.mp3'),
-      defend: new Audio('https://your-storage-url/523760__matrixxx__attack-blocked.mp3'),
-      heal: new Audio('https://your-storage-url/523654__matrixxx__powerup-10.mp3'),
-      fight: new Audio('https://your-storage-url/541822__audeption__three-two-one-fight-deep-voice.mp3')
+      attack: new Audio('/sounds/442769__qubodup__sword-hit.mp3'),
+      special: new Audio('/sounds/547600__mateusz_chenc__sword-attack.mp3'),
+      defend: new Audio('/sounds/523760__matrixxx__attack-blocked.mp3'),
+      heal: new Audio('/sounds/523654__matrixxx__powerup-10.mp3'),
+      fight: new Audio('/sounds/541822__audeption__three-two-one-fight-deep-voice.mp3')
     }
     
     this.initialized = true

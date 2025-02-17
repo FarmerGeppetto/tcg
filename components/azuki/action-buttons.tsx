@@ -2,6 +2,7 @@
 
 import { useCardStore } from "@/lib/store"
 import { Button } from "@/components/ui/button"
+import SoundManager from "@/lib/sounds"
 
 interface ActionButtonProps {
   icon: string;
@@ -90,9 +91,17 @@ export function ActionButton({
   const actionState = actionStates[label.toLowerCase() as keyof typeof actionStates]
   const isDisabled = actionState.remainingUses <= 0 || disabled
 
+  const handleClick = () => {
+    if (!isDisabled) {
+      // Play the corresponding sound
+      SoundManager.play(label.toLowerCase() as 'attack' | 'special' | 'defend' | 'heal')
+      onClick()
+    }
+  }
+
   return (
     <Button
-      onClick={onClick}
+      onClick={handleClick}
       className={`${color} hover:opacity-90 h-14 relative group ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       disabled={isDisabled}
     >

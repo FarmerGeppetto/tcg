@@ -34,3 +34,39 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Build and development
+.next/
+out/
+node_modules/
+*.tsbuildinfo
+.vercel
+
+# Environment and system
+.env*
+.env.local
+.DS_Store
+*.pem
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js specific
+next-env.d.ts
+app-build-manifest.json
+build-manifest.json
+react-loadable-manifest.json
+trace/
+
+# Sound files
+public/sounds/*.mp3
+public/sounds/*.wav
+
+# Keep these files
+!package.json
+!package-lock.json
+!next.config.js
+!tsconfig.json
+!tailwind.config.js 
