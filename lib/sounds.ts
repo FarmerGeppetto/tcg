@@ -5,22 +5,30 @@ class SoundManager {
   private static initialize() {
     if (typeof window === 'undefined' || this.initialized) return
 
-    // Use raw GitHub URLs for now
-    const baseUrl = 'https://raw.githubusercontent.com/FarmerGeppetto/tcg/main/public'
+    // Add console logs to debug
+    console.log('Initializing sound manager...')
 
+    // Using temporary direct URLs - replace these with your actual hosted sound files
     this.sounds = {
-      attack: new Audio(`${baseUrl}/sounds/442769__qubodup__sword-hit.mp3`),
-      special: new Audio(`${baseUrl}/sounds/547600__mateusz_chenc__sword-attack.mp3`),
-      defend: new Audio(`${baseUrl}/sounds/523760__matrixxx__attack-blocked.mp3`),
-      heal: new Audio(`${baseUrl}/sounds/523654__matrixxx__powerup-10.mp3`),
-      fight: new Audio(`${baseUrl}/sounds/541822__audeption__three-two-one-fight-deep-voice.mp3`)
+      attack: new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'),
+      special: new Audio('https://assets.mixkit.co/active_storage/sfx/2577/2577-preview.mp3'),
+      defend: new Audio('https://assets.mixkit.co/active_storage/sfx/2575/2575-preview.mp3'),
+      heal: new Audio('https://assets.mixkit.co/active_storage/sfx/2574/2574-preview.mp3'),
+      fight: new Audio('https://assets.mixkit.co/active_storage/sfx/2578/2578-preview.mp3')
     }
+
+    // Add error listeners to each sound
+    Object.entries(this.sounds).forEach(([name, audio]) => {
+      audio.addEventListener('error', (e) => {
+        console.error(`Error loading ${name}:`, e)
+      })
+    })
     
     this.initialized = true
   }
 
   static play(sound: keyof typeof SoundManager.sounds) {
-    if (typeof window === 'undefined') return // Don't run on server
+    if (typeof window === 'undefined') return
 
     if (!this.initialized) {
       this.initialize()
@@ -28,9 +36,12 @@ class SoundManager {
 
     const audio = this.sounds[sound]
     if (audio) {
+      console.log(`Attempting to play ${sound}...`)
       audio.currentTime = 0
       audio.volume = 0.3
-      audio.play().catch(e => console.error('Error playing sound:', e))
+      audio.play()
+        .then(() => console.log(`${sound} played successfully`))
+        .catch(e => console.error(`Error playing ${sound}:`, e))
     }
   }
 }
