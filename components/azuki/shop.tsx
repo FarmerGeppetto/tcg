@@ -19,6 +19,7 @@ interface ShopItem {
   price: number
   icon: string
   effect: string
+  comingSoon?: boolean
 }
 
 const SHOP_ITEMS: ShopItem[] = [
@@ -28,7 +29,8 @@ const SHOP_ITEMS: ShopItem[] = [
     description: 'Instantly restore your HP to 100%',
     price: 50,
     icon: '🧪',
-    effect: 'heal-full'
+    effect: 'heal-full',
+    comingSoon: true
   },
   {
     id: 'attack-boost',
@@ -36,7 +38,8 @@ const SHOP_ITEMS: ShopItem[] = [
     description: 'Increase attack damage by 20% for one battle',
     price: 75,
     icon: '⚔️',
-    effect: 'boost-attack'
+    effect: 'boost-attack',
+    comingSoon: true
   },
   {
     id: 'defense-shield',
@@ -44,7 +47,8 @@ const SHOP_ITEMS: ShopItem[] = [
     description: 'Reduce incoming damage by 25% for one battle',
     price: 75,
     icon: '🛡️',
-    effect: 'boost-defense'
+    effect: 'boost-defense',
+    comingSoon: true
   },
   {
     id: 'revival-token',
@@ -52,7 +56,8 @@ const SHOP_ITEMS: ShopItem[] = [
     description: 'Continue battle with 50% HP when defeated',
     price: 100,
     icon: '💫',
-    effect: 'revival'
+    effect: 'revival',
+    comingSoon: true
   }
 ]
 
@@ -109,15 +114,24 @@ export function Shop() {
           {SHOP_ITEMS.map((item) => (
             <div 
               key={item.id}
-              className="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+              className="p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors cursor-pointer relative"
               onClick={() => setSelectedItem(item)}
             >
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl">{item.icon}</span>
-                <div>
+                <div className="flex-1">
                   <h3 className="font-medium">{item.name}</h3>
                   <p className="text-sm text-white/60">{item.price} points</p>
                 </div>
+                {item.comingSoon && (
+                  <div className="animate-pulse">
+                    <div className="bg-purple-500/20 border border-purple-500/50 rounded-lg px-2 py-1">
+                      <span className="text-xs font-bold text-purple-300">
+                        COMING SOON
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
               <p className="text-sm text-white/80">{item.description}</p>
             </div>
