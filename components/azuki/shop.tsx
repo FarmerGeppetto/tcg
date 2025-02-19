@@ -66,6 +66,7 @@ export function Shop() {
   const playerPoints = useCardStore((state) => state.playerPoints)
   const setPlayerPoints = useCardStore((state) => state.setPlayerPoints)
   const addInventoryItem = useCardStore((state) => state.addInventoryItem)
+  const playerWallet = useCardStore((state) => state.playerWallet)
 
   const purchaseItem = async (item: ShopItem) => {
     if (playerPoints < item.price) {
@@ -76,8 +77,14 @@ export function Shop() {
     try {
       const response = await fetch('/api/shop/purchase', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ itemId: item.id })
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${playerWallet}`
+        },
+        body: JSON.stringify({ 
+          itemId: item.id,
+          wallet_address: playerWallet
+        })
       })
 
       if (response.ok) {
@@ -107,7 +114,16 @@ export function Shop() {
       <DialogContent className="bg-zinc-950/90 border-white/10 text-white max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">Item Shop</DialogTitle>
-          <p className="text-white/60">Your Points: {playerPoints}</p>
+          <div className="flex items-center justify-between">
+            <p className="text-white/60">Your Points: {playerPoints}</p>
+            <div className="animate-pulse">
+              <div className="bg-purple-500/20 border border-purple-500/50 rounded-lg px-2 py-1">
+                <span className="text-xs font-bold text-purple-300">
+                  COMING SOON
+                </span>
+              </div>
+            </div>
+          </div>
         </DialogHeader>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
