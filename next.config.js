@@ -16,6 +16,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'i2.seadn.io'
+      },
+      {
+        protocol: 'https',
         hostname: 'euc.li'
       },
       {
